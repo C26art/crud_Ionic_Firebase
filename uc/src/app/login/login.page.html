@@ -1,0 +1,203 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons>
+      <ion-menu-button> </ion-menu-button>
+      <ion-title>Login</ion-title>
+      <ion-icon name="lock-closed" class="ion-padding-end"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="upper">
+    <div class="icon">
+      <ion-icon name="skull"></ion-icon>
+    </div>
+    <p id="login">Alunos</p>
+  </div>
+  <div class="middle">
+    <div class="box">
+      <form [formGroup]="credentials" (ngSubmit)="login()">
+        <ion-item fill="solid">
+          <ion-label position="floating"> Email: </ion-label>
+          <ion-input
+            type="email"
+            placeholder=" Digite seu email"
+            formControlName="email"
+            id="email"
+            inputmode="email"
+            required
+            email
+          >
+          </ion-input>
+          <ion-note
+            slot="error"
+            *ngIf="(email?.dirty || email?.touched) && email?.errors"
+            >Email is invalid</ion-note
+          >
+          <ion-icon
+            class="ion-align-self-center"
+            slot="end"
+            name="mail"
+          ></ion-icon>
+        </ion-item>
+        <div>
+          <ion-text color="danger-text-center">
+            <h4
+              style="
+                padding-left: 20px;
+                margin-top: 10px;
+                font-size: 13px;
+                color: #f00;
+                font-style: italic;
+              "
+            >
+              Please Write Your Email Address!
+            </h4>
+          </ion-text>
+        </div>
+        <ion-item>
+          <ion-label position="floating"> Confirmar Email: </ion-label>
+          <ion-input
+            type="confEmail"
+            placeholder=" confirmar email"
+            formControlName="confEmail"
+            id="confEmail"
+            inputmode="email"
+            required
+            email
+          >
+          </ion-input>
+          <ion-icon
+            class="ion-align-self-center"
+            slot="end"
+            name="mail"
+          ></ion-icon>
+        </ion-item>
+        <div
+          *ngIf="credentials.get('confEmail')?.hasError('equalsTo') && credentials.get('confEmail')?.touched"
+        >
+          Emails não são iguais.
+        </div>
+        <div>
+          <ion-text color="danger-text-center">
+            <h4
+              style="
+                padding-left: 20px;
+                margin-top: 10px;
+                font-size: 13px;
+                color: #f00;
+                font-style: italic;
+              "
+            >
+              Please Confirm Your Email Address!
+            </h4>
+          </ion-text>
+        </div>
+        <ion-item fill="solid">
+          <ion-label position="floating"> Senha: </ion-label>
+          <ion-input
+            type="senha"
+            placeholder=" Digite sua senha"
+            formControlName="senha"
+            id="senha"
+            inputmode="senha"
+            required
+          >
+          </ion-input>
+          <ion-note
+            slot="error"
+            *ngIf="(senha?.dirty || senha?.touched) && senha?.errors"
+            >Password needs to be 6 characters</ion-note
+          >
+          <ion-icon
+            class="ion-align-self-center"
+            slot="end"
+            name="eye-outline"
+            (click)="changeType()"
+          ></ion-icon>
+        </ion-item>
+        <div>
+          <ion-text color="danger-text-center">
+            <h4
+              style="
+                padding-left: 20px;
+                margin-top: 10px;
+                font-size: 13px;
+                color: #f00;
+                font-style: italic;
+              "
+            >
+              Please Write Your Password Here!
+            </h4>
+          </ion-text>
+        </div>
+        <ion-item>
+          <ion-label position="floating"> Confirmar Password: </ion-label>
+          <ion-input
+            type="confPass"
+            placeholder=" Confirmar senha"
+            formControlName="confPass"
+            id="confPass"
+            inputmode="password"
+            required
+          >
+          </ion-input>
+          <ion-icon
+            class="ion-align-self-center"
+            slot="end"
+            name="eye-outline"
+            (click)="changeType()"
+          ></ion-icon>
+        </ion-item>
+        <div
+          *ngIf="credentials.get('confPass')?.hasError('equalsTo') && credentials.get('confPass')?.touched"
+        >
+          Senhas não são iguais.
+        </div>
+        <div>
+          <ion-text color="danger-text-center">
+            <h4
+              style="
+                padding-left: 20px;
+                margin-top: 10px;
+                font-size: 13px;
+                color: #f00;
+                font-style: italic;
+              "
+            >
+              Please Confirm Your Password!
+            </h4>
+          </ion-text>
+        </div>
+        <div class="btn">
+          <ion-button type="submit">Login</ion-button>
+          <ion-button type="button" (click)="register()"
+            >Create Account</ion-button
+          >
+        </div>
+      </form>
+
+      <p id="media">Or Login Using Social Media</p>
+
+      <div class="socialMedia">
+        <ion-icon name="logo-facebook" (click)="facebookLogin()"></ion-icon>
+        <ion-icon name="logo-instagram" (click)="instagramLogin()"></ion-icon>
+        <ion-icon name="logo-twitter" (click)="twitterLogin()"></ion-icon>
+      </div>
+
+      <div class="touchLogin" (click)="touchLogin()">
+        <ion-icon name="finger-print-outline"></ion-icon>
+        <p>Sing in Using Touch ID</p>
+      </div>
+
+      <div class="faceLogin" (click)="faceLogin()">
+        <ion-icon name="eye-outline"></ion-icon>
+        <p>Sing in Using Touch ID</p>
+      </div>
+      <div (click)="openSignUp()" class="recover">
+        <a href="">Forgot your password?</a>
+      </div>
+    </div>
+  </div>
+</ion-content>

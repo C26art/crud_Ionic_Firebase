@@ -1,0 +1,38 @@
+
+  .photo-wrapper{
+    justify-content: center;
+  }
+  ion-content{
+    --padding-top: 15px;    
+  }
+  
+  ion-title{
+    text-align: center;
+    color: #f3f3f3; 
+    font-weight: 600; 
+  }
+  
+  .new-background-color{
+    --background: rgb(65, 65, 219);
+  }
+
+  ion-avatar{
+    width: 128px;
+    height: 128px;
+  }
+  
+  .preview{
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+  }
+  .fallback{
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    background: #bfbfbf;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+  }

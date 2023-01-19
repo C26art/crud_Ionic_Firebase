@@ -1,0 +1,103 @@
+ion-content {
+  --background: #fafcd3;
+  min-height: 100%;
+
+  .upper {
+    width: 100%;
+    height: 200px;
+    padding-top: 30px;
+
+    .icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      ion-icon {
+        font-size: 100px;
+        color: #3d3d34;
+      }
+    }
+    #login {
+      text-align: center;
+      color: #f70b17;
+      font-size: 28px;
+    }
+  }
+  .middle {
+    padding: 20px;
+
+    .box {
+      border-radius: 10px;
+      height: auto;
+      background: #fff;
+      padding: 20px;
+
+      p {
+        color: gray;
+        text-align: center;
+      }
+
+      ion-item {
+        ion-icon {
+          color: #da2644;
+        }
+      }
+      #forgetPassword {
+        font-size: 14px;
+        color: #da2644;
+        text-align: end;
+      }
+      .btn {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+
+        ion-button {
+          --background: #f70b17;
+        }
+      }
+
+      #media {
+        color: #3d3d34;
+      }
+
+      .socialMedia {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        ion-icon {
+          padding-right: 15px;
+          font-size: 28px;
+        }
+        ion-icon:nth-child(1) {
+          color: #4267b2;
+        }
+        ion-icon:nth-child(2) {
+          color: #db4437;
+        }
+        ion-icon:nth-child(3) {
+          color: #1da1f2;
+        }
+      }
+      .touchLogin,
+      .faceLogin {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        color: #fff;
+        border-bottom: 1px solid #ccc;
+
+        ion-icon {
+          font-size: 20px;
+          margin-right: 5px;
+          color: red;
+        }
+      }
+    }
+  }
+}
