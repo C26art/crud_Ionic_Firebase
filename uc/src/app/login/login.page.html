@@ -181,11 +181,28 @@
       <p id="media">Or Login Using Social Media</p>
 
       <div class="socialMedia">
+        <ion-icon name="logo-google" (click)="signIn()"></ion-icon>
         <ion-icon name="logo-facebook" (click)="facebookLogin()"></ion-icon>
         <ion-icon name="logo-instagram" (click)="instagramLogin()"></ion-icon>
         <ion-icon name="logo-twitter" (click)="twitterLogin()"></ion-icon>
       </div>
-
+      <ion-button expand="full" (click)="signOut()" *ngIf="user"
+        >Sing Out</ion-button
+      >
+      <ion-button expand="full" (click)="refresh()" *ngIf="!user"
+        >Try Refresh</ion-button
+      >
+      <ion-item *ngIf="user">
+        <ion-avatar slot="start">
+          <div class="imgBx">
+          <img src="assets/image/imageUrl.jpg" alt="" />
+        </div>
+        </ion-avatar>
+        <ion-label>
+          {{ user.givenName }} {{ user.familyName }}
+          <p>{{ user.email }}</p>
+        </ion-label>
+      </ion-item>
       <div class="touchLogin" (click)="touchLogin()">
         <ion-icon name="finger-print-outline"></ion-icon>
         <p>Sing in Using Touch ID</p>

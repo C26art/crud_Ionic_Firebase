@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { LoadingController, AlertController } from '@ionic/angular';
 import { FormValidations } from '../form-validations';
 import { AuthService } from '../services/auth.service';
+import { isPlatform  } from '@ionic/angular';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +13,7 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
+  user: any = null;
   credentials!: FormGroup;
   type: boolean = true;
 
@@ -18,7 +21,11 @@ export class LoginPage implements OnInit {
     private loadingController: LoadingController,
     private alertController: AlertController,
     private authService: AuthService,
-    private router: Router) { }
+    private router: Router) {
+      if(!isPlatform('capacitor')) {
+        GoogleAuth.initialize();
+      }
+     }
 
     get email() {
       return this.credentials.get('email');
@@ -44,10 +51,10 @@ export class LoginPage implements OnInit {
   async register() {
     const loading = await this.loadingController.create();
     await loading.present();
- 
+
     const user = await this.authService.register(this.credentials.value);
     await loading.dismiss();
- 
+
     if(user) {
      this.router.navigateByUrl('/tabs/register', {replaceUrl: true});
     }else {
@@ -73,11 +80,11 @@ export class LoginPage implements OnInit {
     const alert = await this.alertController.create({
       header,
       message,
-      buttons: ['OK'],      
+      buttons: ['OK'],
     });
     await alert.present();
   }
-  
+
 
   changeType() {
     this.type = !this.type;
@@ -98,4 +105,20 @@ export class LoginPage implements OnInit {
 
   openSignUp() {}
 
+  async signIn() {
+    this.user = await GoogleAuth.signIn();
+    console.log('user: ', this.user);
+  }
+
+  async refresh() {
+    const authCode = await GoogleAuth.refresh();
+    console.log('refresh: ', authCode);
+  }
+
+  async signOut() {
+    await GoogleAuth.signOut();
+    this.user = null;
+  }
 }
+
+
