@@ -11,13 +11,13 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { getApp } from 'firebase/app';
 import { indexedDBLocalPersistence, initializeAuth } from 'firebase/auth';
 import { environment } from 'src/environments/environment';
-
+import { FirebaseModule } from './shared/fire-auth/fire-auth.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,
+  imports: [BrowserModule, FirebaseModule, IonicModule.forRoot(), AppRoutingModule,
     provideFirebaseApp(()=> initializeApp(environment.firebase)),
     provideAuth(() => {
       if(Capacitor.isNativePlatform()) {

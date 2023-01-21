@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LoadingController, AlertController } from '@ionic/angular';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
+import { AlertController, isPlatform, LoadingController } from '@ionic/angular';
+
 import { FormValidations } from '../form-validations';
 import { AuthService } from '../services/auth.service';
-import { isPlatform  } from '@ionic/angular';
-import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
-
+import { FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult } from 'firebaseui-angular';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -118,6 +118,19 @@ export class LoginPage implements OnInit {
   async signOut() {
     await GoogleAuth.signOut();
     this.user = null;
+  }
+
+  successCallback(data: FirebaseUISignInSuccessWithAuthResult) {
+    console.log('successCallback', data);
+    this.router.navigateByUrl('/tabs/register', {replaceUrl: true});
+  }
+
+  errorCallback(data: FirebaseUISignInFailure) {
+    console.warn('errorCallback', data);
+  }
+
+  uiShownCallback() {
+    console.log('UI shown');
   }
 }
 

@@ -215,6 +215,10 @@
       <div (click)="openSignUp()" class="recover">
         <a href="">Forgot your password?</a>
       </div>
+      <div>
+        <firebase-ui (signInSuccessWithAuthResult)="successCallback($event)" (signInFailure)="errorCallback($event)"
+          (uiShown)="uiShownCallback()"></firebase-ui>
+      </div>
     </div>
   </div>
 </ion-content>
