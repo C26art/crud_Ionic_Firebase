@@ -179,12 +179,12 @@
       </form>
 
       <p id="media">Or Login Using Social Media</p>
-
-      <div class="socialMedia">
-        <ion-icon name="logo-google" (click)="signIn()"></ion-icon>
-        <ion-icon name="logo-facebook" (click)="facebookLogin()"></ion-icon>
-        <ion-icon name="logo-instagram" (click)="instagramLogin()"></ion-icon>
-        <ion-icon name="logo-twitter" (click)="twitterLogin()"></ion-icon>
+      <div>
+        <firebase-ui
+          (signInSuccessWithAuthResult)="successCallback($event)"
+          (signInFailure)="errorCallback($event)"
+          (uiShown)="uiShownCallback()"
+        ></firebase-ui>
       </div>
       <ion-button expand="full" (click)="signOut()" *ngIf="user"
         >Sing Out</ion-button
@@ -195,8 +195,8 @@
       <ion-item *ngIf="user">
         <ion-avatar slot="start">
           <div class="imgBx">
-          <img src="assets/image/imageUrl.jpg" alt="" />
-        </div>
+            <img src="assets/image/imageUrl.jpg" alt="" />
+          </div>
         </ion-avatar>
         <ion-label>
           {{ user.givenName }} {{ user.familyName }}
@@ -215,9 +215,11 @@
       <div (click)="openSignUp()" class="recover">
         <a href="">Forgot your password?</a>
       </div>
-      <div>
-        <firebase-ui (signInSuccessWithAuthResult)="successCallback($event)" (signInFailure)="errorCallback($event)"
-          (uiShown)="uiShownCallback()"></firebase-ui>
+      <div class="socialMedia">
+        <ion-icon name="logo-google" (click)="signIn()"></ion-icon>
+        <ion-icon name="logo-facebook" (click)="facebookLogin()"></ion-icon>
+        <ion-icon name="logo-instagram" (click)="instagramLogin()"></ion-icon>
+        <ion-icon name="logo-twitter" (click)="twitterLogin()"></ion-icon>
       </div>
     </div>
   </div>

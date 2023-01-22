@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth';
 import { AlertController, isPlatform, LoadingController } from '@ionic/angular';
+import { FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult } from 'firebaseui-angular';
 
 import { FormValidations } from '../form-validations';
 import { AuthService } from '../services/auth.service';
-import { FirebaseUISignInFailure, FirebaseUISignInSuccessWithAuthResult } from 'firebaseui-angular';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -17,34 +18,44 @@ export class LoginPage implements OnInit {
   credentials!: FormGroup;
   type: boolean = true;
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private loadingController: LoadingController,
     private alertController: AlertController,
     private authService: AuthService,
-    private router: Router) {
-      if(!isPlatform('capacitor')) {
-        GoogleAuth.initialize();
-      }
-     }
+    private router: Router
+  ) {
+    if (!isPlatform('capacitor')) {
+      GoogleAuth.initialize();
+    }
+  }
 
-    get email() {
-      return this.credentials.get('email');
-    }
-    get senha() {
-      return this.credentials.get('senha');
-    }
+  get email() {
+    return this.credentials.get('email');
+  }
+  get senha() {
+    return this.credentials.get('senha');
+  }
 
   ngOnInit() {
     this.credentials = this.fb.group({
-      email: ['', [Validators.required,
-        Validators.pattern(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i),
-        Validators.email,]],
-      confEmail: ['', [Validators.required,
-        FormValidations.equalsTo('email'),]],
-      senha: ['', [Validators.required,
-        Validators.pattern(/^(?=.*[@*\.])[a-zA-Z0-9@*]{6,10}$/),]],
-      confPass: ['', [Validators.required,
-        FormValidations.equalsTo('senha'),]]
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^[a-z0-9.]+@[a-z0-9]+\.[a-z]+\.([a-z]+)?$/i),
+          Validators.email,
+        ],
+      ],
+      confEmail: ['', [Validators.required, FormValidations.equalsTo('email')]],
+      senha: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(/^(?=.*[@*\.])[a-zA-Z0-9@*]{6,10}$/),
+        ],
+      ],
+      confPass: ['', [Validators.required, FormValidations.equalsTo('senha')]],
     });
   }
 
@@ -55,25 +66,25 @@ export class LoginPage implements OnInit {
     const user = await this.authService.register(this.credentials.value);
     await loading.dismiss();
 
-    if(user) {
-     this.router.navigateByUrl('/tabs/register', {replaceUrl: true});
-    }else {
-     this.showAlert('Registration failed', 'please try again!');
+    if (user) {
+      this.router.navigateByUrl('/tabs/register', { replaceUrl: true });
+    } else {
+      this.showAlert('Registration failed', 'please try again!');
     }
-   }
+  }
 
-   async login() {
+  async login() {
     const loading = await this.loadingController.create();
-   await loading.present();
+    await loading.present();
 
-   const user = await this.authService.login(this.credentials.value);
-   await loading.dismiss();
+    const user = await this.authService.login(this.credentials.value);
+    await loading.dismiss();
 
-   if(user) {
-    this.router.navigateByUrl('/tabs/register', {replaceUrl: true});
-   }else {
-    this.showAlert('Login failed', 'please try again!');
-   }
+    if (user) {
+      this.router.navigateByUrl('/tabs/register', { replaceUrl: true });
+    } else {
+      this.showAlert('Login failed', 'please try again!');
+    }
   }
 
   async showAlert(header: any, message: any) {
@@ -84,7 +95,6 @@ export class LoginPage implements OnInit {
     });
     await alert.present();
   }
-
 
   changeType() {
     this.type = !this.type;
@@ -122,7 +132,7 @@ export class LoginPage implements OnInit {
 
   successCallback(data: FirebaseUISignInSuccessWithAuthResult) {
     console.log('successCallback', data);
-    this.router.navigateByUrl('/tabs/register', {replaceUrl: true});
+    this.router.navigateByUrl('/tabs/register', { replaceUrl: true });
   }
 
   errorCallback(data: FirebaseUISignInFailure) {
@@ -133,5 +143,3 @@ export class LoginPage implements OnInit {
     console.log('UI shown');
   }
 }
-
-

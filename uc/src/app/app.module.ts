@@ -11,16 +11,21 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { getApp } from 'firebase/app';
 import { indexedDBLocalPersistence, initializeAuth } from 'firebase/auth';
 import { environment } from 'src/environments/environment';
-import { FirebaseModule } from './shared/fire-auth/fire-auth.module';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FirebaseModule } from './shared/fire-auth/fire-auth.module';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, FirebaseModule, IonicModule.forRoot(), AppRoutingModule,
-    provideFirebaseApp(()=> initializeApp(environment.firebase)),
+  imports: [
+    BrowserModule,
+    FirebaseModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => {
-      if(Capacitor.isNativePlatform()) {
+      if (Capacitor.isNativePlatform()) {
         return initializeAuth(getApp(), {
           persistence: indexedDBLocalPersistence,
         });
@@ -30,7 +35,8 @@ import { AppComponent } from './app.component';
     }),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
-  AngularFireAuthModule],
+    AngularFireAuthModule,
+  ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
